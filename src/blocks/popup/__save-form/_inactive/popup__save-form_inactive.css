@@ -1,0 +1,9 @@
+.popup__save-form_inactive {
+  background-color: #ffffff;
+  color: rgba(0, 0, 0, 0.15);
+  border-color: rgba(0, 0, 0, 0.15);
+}
+
+.popup__save-form_inactive::hover {
+  opacity: 1;
+}

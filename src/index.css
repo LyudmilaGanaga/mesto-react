@@ -1,0 +1,58 @@
+@import url(../src/vendor/normalize.css);
+@import url(../src/vendor/fonts/fonts.css);
+
+@import url(../src/blocks/page/page.css);
+
+/* Секция header */
+@import url(../src/blocks/header/header.css);
+@import url(../src/blocks/header/__logo/header__logo.css);
+
+/* Секция профиль */
+@import url(../src/blocks/profile/profile.css);
+@import url(../src/blocks/profile/__avatar/profile__avatar.css);
+@import url(../src/blocks/profile/__info/profile__info.css);
+@import url(../src/blocks/profile/__name/profile__name.css);
+@import url(../src/blocks/profile/__working/profile__working.css);
+@import url(../src/blocks/profile/__edit-button/profile__edit-button.css);
+@import url(../src/blocks/profile/__add-button/profile__add-button.css);
+@import url(../src/blocks/profile/__avatar-button/profile__avatar-button.css);
+
+/* Секция элементы */
+@import url(../src/blocks/element/element.css);
+@import url(../src/blocks/element/__list/elements__list.css);
+@import url(../src/blocks/element/__image/element__image.css);
+@import url(../src/blocks/element/__text/element__text.css);
+@import url(../src/blocks/element/__group/element__group.css);
+@import url(../src/blocks/element/__like/element__like.css);
+@import url(../src/blocks/element/__like/_active/element__like_active.css);
+@import url(../src/blocks/element/__delete/element__delete.css);
+
+@import url(../src/blocks/element/__likes/element__likes.css);
+
+/* Footer */
+@import url(../src/blocks/footer/__copyright/footer__copyright.css);
+@import url(../src/blocks/footer/footer.css);
+
+/* Popup */
+@import url(../src/blocks/popup/popup.css);
+@import url(../src/blocks/popup/__container/popup__container.css);
+@import url(../src/blocks/popup/__close-button/popup__close-button.css);
+@import url(../src/blocks/popup/__title/popup__title.css);
+@import url(../src/blocks/popup/__input/popup__input.css);
+@import url(../src/blocks/popup/__form/popup__form.css);
+@import url(../src/blocks/popup/__save-form/popup__save-form.css);
+
+@import url(../src/blocks/popup/_opened/popup_opened.css);
+
+@import url(../src/blocks/popup/_background-black/popup_background-black.css);
+
+@import url(../src/blocks/popup/__image/popup__image.css);
+@import url(../src/blocks/popup/__image-container/popup__image-container.css);
+@import url(../src/blocks/popup/__image-text/popup__image-text.css);
+
+
+/* Валидация */
+@import url(../src/blocks/popup/__save-form/_inactive/popup__save-form_inactive.css);
+@import url(../src/blocks/popup/__input-error/popup__input-error.css);
+@import url(../src/blocks/popup/__input-error/_visible/popup__input-error_visible.css);
+@import url(../src/blocks/popup/__input/_type/popup__input_type_error.css);

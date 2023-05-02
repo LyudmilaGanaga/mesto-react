@@ -1,0 +1,9 @@
+.element {
+  width: 100%;
+  max-height: 360px;
+  background-color: #FFFFFF;
+  color: #000000;
+  border-radius: 3%;
+  overflow: hidden;
+  
+}
