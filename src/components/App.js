@@ -11,7 +11,7 @@ function App() {
   const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = React.useState(false);
   const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] =
     React.useState(false);
-  const [isEditImagePopupOpen, setIsImagePopupOpen] = React.useState(false);
+  const [isImagePopupOpen, setIsImagePopupOpen] = React.useState(false);
   const [selectedCard, setSelectedCard] = React.useState({});
 
   // обработчики
@@ -53,7 +53,7 @@ function App() {
 
       <ImagePopup
         card={selectedCard}
-        isOpen={isEditImagePopupOpen}
+        isOpen={isImagePopupOpen}
         onClose={closeAllPopups}
       ></ImagePopup>
 

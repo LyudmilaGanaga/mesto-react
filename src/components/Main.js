@@ -2,10 +2,15 @@ import React from "react";
 import Card from "./Card";
 import { api } from "../utils/Api";
 
-export default function Main({ onEditProfile, onAddPlace, onEditAvatar, onCardClick }) {
+export default function Main({
+  onEditProfile,
+  onAddPlace,
+  onEditAvatar,
+  onCardClick,
+}) {
   const [userName, setUserName] = React.useState("");
   const [userDescription, setUserDescription] = React.useState("");
-  const [userAvatar, setUserAvatar] = React.useState(""); 
+  const [userAvatar, setUserAvatar] = React.useState("");
   const [cards, setCards] = React.useState([]);
 
   React.useEffect(() => {
@@ -20,6 +25,10 @@ export default function Main({ onEditProfile, onAddPlace, onEditAvatar, onCardCl
         console.log(`Ошибка: ${err}`);
       });
   }, []);
+
+  const cardElements = cards.map((card) => (
+    <Card card={card} onCardClick={onCardClick} key={card._id} />
+  ));
 
   return (
     <main className="content">
@@ -47,11 +56,7 @@ export default function Main({ onEditProfile, onAddPlace, onEditAvatar, onCardCl
       </section>
 
       <section className="elements">
-        <ul className="elements__list">
-          {cards.map((card) => (
-            <Card card={card} onCardClick={onCardClick} key={card._id} />
-          ))}
-        </ul>
+        <ul className="elements__list">{cardElements}</ul>
       </section>
     </main>
   );

@@ -79,7 +79,7 @@ class Api {
   }
 
   // удалить лайк карточки (DELETE)
-  dileteLike(id) {
+  deleteLike(id) {
     return fetch(`${this._url}/cards/${id}/likes`, {
       method: "DELETE",
       headers: this._headers,

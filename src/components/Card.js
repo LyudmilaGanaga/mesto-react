@@ -4,7 +4,7 @@ export default function Card({ card, onCardClick }) {
   const handleClick = () => onCardClick(card);
 
   return (
-    <li className="element">
+    <div className="element">
       <button className="element__delete" type="button"></button>
       <img
         className="element__image"
@@ -19,6 +19,6 @@ export default function Card({ card, onCardClick }) {
           <p className="element__likes">{card.likes.length}</p>
         </div>
       </div>
-    </li>
+    </div>
   );
 }
