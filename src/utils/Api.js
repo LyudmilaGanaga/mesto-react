@@ -85,12 +85,21 @@ class Api {
       headers: this._headers,
     }).then(this._getJson);
   }
+
+  // для лайка
+  changeLikeCardStatus(cardId, isLiked) {
+    if (isLiked) {
+      return this.putLike(cardId);
+    } else {
+      return this.deleteLike(cardId);
+    }
+  }
 }
 
 export const api = new Api({
   url: "https://mesto.nomoreparties.co/v1/cohort-62",
   headers: {
     "Content-Type": "application/json",
-    authorization: "fff1efa7-9818-44da-ba96-913e90767349"
-  }
+    authorization: "fff1efa7-9818-44da-ba96-913e90767349",
+  },
 });
