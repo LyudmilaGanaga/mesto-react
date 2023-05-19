@@ -2,6 +2,7 @@
   background-color: #000000;
   margin: 0 auto;
   max-width: 100%;
+  min-height: 100vh;
   font-family: 'Inter', 'Arial', sans-serif;
   font-style: normal;
   -webkit-font-smoothing: antialiased;

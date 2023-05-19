@@ -1,22 +1,30 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import PopupWithForm from "./PopupWithForm";
 
-export default function AddPlacePopup({ isOpen, onClose, onAddPlace }) {
-  const [placeName, setPlaceName] = useState("");
-  const [placeLink, setPlaceLink] = useState("");
+import { useForm } from "react-hook-form";
+import classNames from "classnames";
 
-  function handleSubmit(e) {
-    e.preventDefault();
-    onAddPlace({
-      name: placeName,
-      link: placeLink,
-    });
+export default function AddPlacePopup({ isOpen, onClose, onAddPlace }) {
+  const {
+    register,
+    setValue,
+    reset,
+    handleSubmit,
+    formState: { errors, isValid, isDirty },
+  } = useForm({ mode: "onChange" });
+
+  function onSubmit({ name, link }) {
+    onAddPlace({ name, link });
   }
 
   useEffect(() => {
-    setPlaceName("");
-    setPlaceLink("");
-  }, [isOpen]);
+    reset();
+  }, [isOpen, reset]);
+
+  function handleChange(e) {
+    setValue(e.target.value);
+    e.preventDefault();
+  }
 
   return (
     <PopupWithForm
@@ -24,32 +32,66 @@ export default function AddPlacePopup({ isOpen, onClose, onAddPlace }) {
       name="place"
       isOpen={isOpen}
       onClose={onClose}
-      onSubmit={handleSubmit}
+      onSubmit={handleSubmit(onSubmit)}
+      isValid={isValid}
+      isDirty={isDirty}
     >
       <input
-        className="popup__input popup__input_data_name"
-        id="input-name"
-        type="text"
-        name="name"
-        minLength="2"
-        maxLength="30"
+        className={classNames("popup__input", {
+          popup__input_type_error: errors.name?.message,
+        })}
         placeholder="Название"
-        required
-        value={placeName ?? ""}
-        onChange={(e) => setPlaceName(e.target.value)}
+        onChange={(evt) => handleChange(evt.target.value)}
+        // value={setValue}
+        type="text"
+        {...register("name", {
+          required: {
+            value: true,
+            message: "Вы пропустили это поле",
+          },
+          minLength: {
+            value: 2,
+            message: "Название должно быть от 2 символов",
+          },
+          maxLength: {
+            value: 30,
+            message: "Название должно быть до 30 символов",
+          },
+        })}
       />
-      <span className="popup__input-error input-name-error"></span>
+      <span
+        className={classNames("popup__input-error", {
+          "popup__input-error_visible": errors.name?.message,
+        })}
+      >
+        {errors.name?.message}
+      </span>
+
       <input
-        className="popup__input popup__input_data_link"
-        id="link"
+        className={classNames("popup__input", {
+          popup__input_type_error: errors.link?.message,
+        })}
         type="url"
-        name="link"
         placeholder="Ссылка на картинку"
-        required
-        value={placeLink ?? ""}
-        onChange={(e) => setPlaceLink(e.target.value)}
+        {...register("link", {
+          required: {
+            value: true,
+            message: "Пожалуйста введите URL",
+          },
+          pattern: {
+            value:
+              /^(http|https)\:\/\/[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,}(:[0-9]{2,5})?(\/[a-zA-Z0-9\-\._\?\,\'\/\\\+&amp;%\$#\=~]*)*$/,
+            message: "Введите адрес сайта",
+          },
+        })}
       />
-      <span className="popup__input-error link-error"></span>
+      <span
+        className={classNames("popup__input-error", {
+          "popup__input-error_visible": errors.link?.message,
+        })}
+      >
+        {errors.link?.message}
+      </span>
     </PopupWithForm>
   );
 }

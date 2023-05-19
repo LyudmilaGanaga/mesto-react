@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { Component, useEffect, useState } from "react";
 import Header from "./Header";
 import Main from "./Main";
 import Footer from "./Footer";
@@ -8,12 +8,14 @@ import { CurrentUserContext } from "../contexts/CurrentUserContext";
 import EditProfilePopup from "./EditProfilePopup";
 import EditAvatarPopup from "./EditAvatarPopup";
 import AddPlacePopup from "./AddPlacePopup";
+import PopupWithSubmit from "./PopupWithSubmit";
 
 function App() {
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState(false);
   const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = useState(false);
   const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] =
     React.useState(false);
+  const [isPopupWithSubmit, setIsPopupWithSubmit] = useState(false);
   const [isImagePopupOpen, setIsImagePopupOpen] = useState(false);
   const [selectedCard, setSelectedCard] = useState({});
   const [cards, setCards] = useState([]);
@@ -28,6 +30,40 @@ function App() {
       .catch((err) => alert(err));
   }, []);
 
+  // Обработка закрытия вне элемента
+  useEffect(() => {
+    function handleEscClose(e) {
+      if (e.key === "Escape") {
+        closeAllPopups();
+      }
+    }
+    function closeOverlayClick(e) {
+      if (e.target.classList.contains("popup_opened")) {
+        closeAllPopups();
+      }
+    }
+    if (
+      isEditAvatarPopupOpen ||
+      isEditProfilePopupOpen ||
+      isAddPlacePopupOpen ||
+      isImagePopupOpen ||
+      isPopupWithSubmit
+    ) {
+      document.addEventListener("keyup", handleEscClose);
+      document.addEventListener("click", closeOverlayClick);
+    }
+    return () => {
+      document.removeEventListener("click", closeOverlayClick);
+      document.removeEventListener("keyup", handleEscClose);
+    };
+  }, [
+    isEditAvatarPopupOpen,
+    isEditProfilePopupOpen,
+    isAddPlacePopupOpen,
+    isImagePopupOpen,
+    isPopupWithSubmit,
+  ]);
+  // -------------------------------------------------------------------------
   // обработчики
   function handleEditProfileClick() {
     setIsEditProfilePopupOpen(true);
@@ -46,6 +82,7 @@ function App() {
     setIsAddPlacePopupOpen(false);
     setIsEditAvatarPopupOpen(false);
     setIsImagePopupOpen(false);
+    setIsPopupWithSubmit(false);
   }
 
   function handleCardClick(card) {
@@ -106,6 +143,11 @@ function App() {
       .catch((err) => alert(err));
   }
 
+  function handleCardDeleteConfirm(card) {
+    setIsPopupWithSubmit(true);
+    setSelectedCard(card);
+  }
+
   return (
     <CurrentUserContext.Provider value={currentUser}>
       <div className="page">
@@ -119,6 +161,7 @@ function App() {
           onCardDelete={handleCardDelete}
           onUpdateUser={handleUpdateUser}
           cards={cards}
+          onCardDeleteConfirm={handleCardDeleteConfirm}
         />
         <Footer />
         <EditProfilePopup
@@ -143,6 +186,13 @@ function App() {
           isOpen={isImagePopupOpen}
           onClose={closeAllPopups}
         ></ImagePopup>
+
+        <PopupWithSubmit
+          isOpen={isPopupWithSubmit}
+          onClose={closeAllPopups}
+          card={selectedCard}
+          onCardDelete={handleCardDelete}
+        ></PopupWithSubmit>
       </div>
     </CurrentUserContext.Provider>
   );

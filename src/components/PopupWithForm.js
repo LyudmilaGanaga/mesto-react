@@ -7,6 +7,8 @@ export default function PopupWithForm({
   isOpen,
   onClose,
   onSubmit,
+  isValid,
+  isDirty,
 }) {
   return (
     <div className={`popup popup_type_${name} ${isOpen ? "popup_opened" : ""}`}>
@@ -25,9 +27,12 @@ export default function PopupWithForm({
         >
           {children}
           <button
-            className="popup__save-form"
             type="submit"
             aria-label="Сохранение изменений"
+            className={`popup__save-form ${
+              !isValid || !isDirty ? "popup__submit-btn_inactive" : ""
+            }`}
+            disabled={!isValid || !isDirty}
           >
             Сохранить
           </button>

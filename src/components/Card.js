@@ -1,10 +1,15 @@
 import React, { useContext } from "react";
 import { CurrentUserContext } from "../contexts/CurrentUserContext";
 
-export default function Card({ card, onCardClick, onCardLike, onCardDelete }) {
+export default function Card({
+  card,
+  onCardClick,
+  onCardLike,
+  onCardDeleteConfirm,
+}) {
   const handleClick = () => onCardClick(card);
   const handleLikeClick = () => onCardLike(card);
-  const handleDeleteClick = () => onCardDelete(card);
+  const handleDeleteClick = () => onCardDeleteConfirm(card);
 
   const currentUser = useContext(CurrentUserContext);
   // Определяем, являемся ли мы владельцем текущей карточки

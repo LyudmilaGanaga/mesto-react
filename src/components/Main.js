@@ -9,6 +9,7 @@ export default function Main({
   onCardClick,
   onCardLike,
   onCardDelete,
+  onCardDeleteConfirm,
   cards,
 }) {
   const currentUser = useContext(CurrentUserContext);
@@ -20,6 +21,7 @@ export default function Main({
       onCardLike={onCardLike}
       onCardDelete={onCardDelete}
       key={card._id}
+      onCardDeleteConfirm={onCardDeleteConfirm}
     />
   ));
 
